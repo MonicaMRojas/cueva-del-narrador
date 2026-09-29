@@ -186,3 +186,13 @@ a.item:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
 .act h3{font-size:20px;color:var(--title);margin-bottom:4px}
 .act p{font-size:15px}
 .aviso{margin-top:8px;text-align:center;color:var(--muted);font-style:italic;font-size:15px}
+
+/* ---------- Texto justificado, enlaces y QR ---------- */
+.texto p,.act p{text-align:justify;hyphens:auto;-webkit-hyphens:auto}
+.texto a:not(.btn){color:var(--title);font-weight:700;text-decoration:underline;overflow-wrap:anywhere}
+.nota-i{margin-top:12px;font-size:14px;color:var(--muted);font-style:italic}
+.qrcard{text-align:center}
+.qrbox{background:#fff;border-radius:12px;padding:10px;width:200px;height:200px;margin:0 auto 14px}
+.qrbox .qr{width:100%;height:100%;display:block}
+.qrcard p{margin-bottom:10px}
+.qrcard .url{font-size:13px;color:var(--muted);overflow-wrap:anywhere}
