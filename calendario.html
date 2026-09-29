@@ -59,11 +59,14 @@
 const MESES=['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
 const DIAS=['dom','lun','mar','mié','jue','vie','sáb'];
 const TIPOS={
-  clase:{n:'Clase',c:'var(--teal)'},
-  invitado:{n:'Charla invitada',c:'var(--amber)'},
-  reto:{n:'Reto',c:'var(--aqua)'},
-  club:{n:'Encuentro del club',c:'#E8A9A9'}
+  clase:{n:'Clase',c:'#528A93',t:'#FFFFFF'},
+  marketing:{n:'Clase de marketing',c:'#8797DB',t:'#14262A'},
+  sesion:{n:'Sesión de escritura conjunta',c:'#E8A9A9',t:'#14262A'},
+  invitado:{n:'Charla con invitados',c:'#FFBA55',t:'#14262A'},
+  reto:{n:'Reto',c:'#A9DDE2',t:'#14262A'}
 };
+const OTRO={n:'Otro',c:'#9DB4B8',t:'#14262A'};
+const tipo=k=>TIPOS[k]||OTRO;
 const hoy=new Date();
 let anio=hoy.getFullYear(), mes=hoy.getMonth(), sel=null;
 
@@ -89,11 +92,14 @@ function pintar(){
   for(let d=1;d<=total;d++){
     const k=clave(anio,mes,d);
     const evs=delMes.filter(e=>e.fecha===k);
-    const dots=evs.slice(0,3).map(e=>'<i style="background:'+(TIPOS[e.tipo]||TIPOS.club).c+'"></i>').join('');
+    const tipos=[...new Set(evs.map(e=>e.tipo))];
+    let estilo='', extra='';
+    if(tipos.length===1){const t=tipo(tipos[0]);estilo=' style="background:'+t.c+';color:'+t.t+'"';extra=' has';}
+    else if(tipos.length>1){const paso=100/tipos.length;estilo=' style="background:linear-gradient(90deg,'+tipos.map((x,i)=>tipo(x).c+' '+(i*paso)+'% '+((i+1)*paso)+'%').join(',')+')"';extra=' has multi';}
     const esHoy=(anio===hoy.getFullYear()&&mes===hoy.getMonth()&&d===hoy.getDate());
-    const cls='day'+(esHoy?' today':'')+(sel===k?' sel':'');
-    const label=d+' de '+MESES[mes]+(evs.length?', '+evs.length+(evs.length===1?' evento':' eventos'):'');
-    h+='<button class="'+cls+'" data-k="'+k+'" aria-label="'+label+'"'+(sel===k?' aria-pressed="true"':'')+'>'+d+'<span class="dots">'+dots+'</span></button>';
+    const cls='day'+extra+(esHoy?' today':'')+(sel===k?' sel':'');
+    const label=d+' de '+MESES[mes]+(evs.length?', '+evs.length+(evs.length===1?' evento':' eventos'):'')+(esHoy?', hoy':'');
+    h+='<button class="'+cls+'"'+estilo+' data-k="'+k+'" aria-label="'+label+'"'+(sel===k?' aria-pressed="true"':'')+'><span class="num">'+d+'</span></button>';
   }
   document.getElementById('dias').innerHTML=h;
 
@@ -102,9 +108,9 @@ function pintar(){
   if(sel){const p=partes(sel);tl.textContent=p.d+' de '+MESES[p.m];} else tl.textContent='Eventos de '+MESES[mes].toLowerCase();
   document.getElementById('ver-mes').hidden=!sel;
   document.getElementById('lista').innerHTML=lista.length?lista.map(e=>{
-    const p=partes(e.fecha), t=TIPOS[e.tipo]||TIPOS.club;
+    const p=partes(e.fecha), t=tipo(e.tipo);
     const dia=DIAS[new Date(p.a,p.m,p.d).getDay()];
-    return '<article class="ev"><div class="date" style="background:'+t.c+';color:'+(e.tipo==='clase'?'#fff':'var(--teal-deep)')+'"><b>'+String(p.d).padStart(2,'0')+'</b><small>'+dia+'</small></div><div><h3>'+esc(e.titulo)+'</h3><p>'+(e.hora?esc(e.hora)+' h':'')+(e.lugar?' · '+esc(e.lugar):'')+'</p>'+(e.detalle?'<p>'+esc(e.detalle)+'</p>':'')+'<span class="badge"><i style="background:'+t.c+'"></i>'+t.n+'</span></div></article>';
+    return '<article class="ev"><div class="date" style="background:'+t.c+';color:'+t.t+'"><b>'+String(p.d).padStart(2,'0')+'</b><small>'+dia+'</small></div><div><h3>'+esc(e.titulo)+'</h3><p>'+(e.hora?esc(e.hora)+' h':'')+(e.lugar?' · '+esc(e.lugar):'')+'</p>'+(e.detalle?'<p>'+esc(e.detalle)+'</p>':'')+'<span class="badge"><i style="background:'+t.c+'"></i>'+t.n+'</span></div></article>';
   }).join(''):'<p class="empty">'+(sel?'Ese día no hay nada previsto.':'Este mes no hay eventos programados.')+'</p>';
 }
 
