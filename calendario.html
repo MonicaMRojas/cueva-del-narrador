@@ -54,19 +54,11 @@
     <a href="#"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="5" cy="12" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="19" cy="12" r="1.5"/></svg>Más</a>
   </nav>
 </div>
+<script src="tipos.js"></script>
 <script src="eventos.js"></script>
 <script>
 const MESES=['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
 const DIAS=['dom','lun','mar','mié','jue','vie','sáb'];
-const TIPOS={
-  clase:{n:'Clase',c:'#528A93',t:'#FFFFFF'},
-  marketing:{n:'Clase de marketing',c:'#8797DB',t:'#14262A'},
-  sesion:{n:'Sesión de escritura conjunta',c:'#E8A9A9',t:'#14262A'},
-  invitado:{n:'Charla con invitados',c:'#FFBA55',t:'#14262A'},
-  reto:{n:'Reto',c:'#A9DDE2',t:'#14262A'}
-};
-const OTRO={n:'Otro',c:'#9DB4B8',t:'#14262A'};
-const tipo=k=>TIPOS[k]||OTRO;
 const hoy=new Date();
 let anio=hoy.getFullYear(), mes=hoy.getMonth(), sel=null;
 
