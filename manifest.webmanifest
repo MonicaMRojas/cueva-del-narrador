@@ -16,6 +16,7 @@
   "shortcuts": [
     { "name": "Reto del mes", "url": "./#reto", "icons": [{ "src": "img/icon-192.png", "sizes": "192x192" }] },
     { "name": "Próximos eventos", "url": "./#eventos", "icons": [{ "src": "img/icon-192.png", "sizes": "192x192" }] },
-    { "name": "Lecturas del mes", "url": "./#lecturas", "icons": [{ "src": "img/icon-192.png", "sizes": "192x192" }] }
+    { "name": "Nuestra biblioteca", "url": "./#biblioteca", "icons": [{ "src": "img/icon-192.png", "sizes": "192x192" }] },
+    { "name": "Libros recomendados", "url": "./#recomendados", "icons": [{ "src": "img/icon-192.png", "sizes": "192x192" }] }
   ]
 }
