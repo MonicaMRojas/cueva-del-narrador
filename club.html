@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sobre el club · La Cueva del Narrador</title>
+<meta name="theme-color" content="#528A93">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="img/icon-192.png">
+<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="app">
+  <header class="pagehead">
+    <div class="top">
+      <div class="brand">
+        <img src="img/logo-arco.png" alt="Logo de La Cueva del Narrador">
+        <span>La Cueva<br>del Narrador</span>
+      </div>
+      <div class="avatar" aria-label="Tu perfil">M</div>
+    </div>
+    <h1>Sobre el club</h1>
+    <p class="sub">Escribimos, aprendemos y nos reímos juntos.</p>
+  </header>
+
+  <main>
+    <section class="card texto" aria-label="Quiénes somos">
+      <p><b>Somos un club donde compartimos experiencias de escritura y aprendemos entre todos.</b></p>
+      <p>Damos clases, pero sin ser profesores expertos: cada uno aporta lo que sabe y todos aprendemos de todos. Somos un grupo de amigos que se enseña, escribe junto y crece como escritor en el mundo literario. Y por el camino, nos reímos mucho.</p>
+    </section>
+
+    <section aria-label="Cuándo y dónde">
+      <div class="sec-head"><h2>Cuándo y dónde</h2></div>
+      <div class="card">
+        <div class="dato"><small>Cuándo</small><b>Miércoles no festivos, de 18:00 a 20:00</b></div>
+        <div class="dato"><small>Dónde</small><b>Centro Cívico de Sevilla Este</b></div>
+      </div>
+    </section>
+
+    <section aria-label="Qué hacemos">
+      <div class="sec-head"><h2>Qué hacemos</h2></div>
+      <div id="actividades"></div>
+    </section>
+
+    <section aria-label="Cómo apuntarse">
+      <div class="sec-head"><h2>Cómo apuntarse</h2></div>
+      <div class="card texto">
+        <p>Apúntate a través del <b>enlace de la descripción de nuestro perfil de Instagram</b>.</p>
+        <p>Las plazas son limitadas. No hay ningún requisito de entrada, solo que queden plazas: si quieres saber si las hay o tienes cualquier duda, escríbenos un mensaje por Instagram.</p>
+        <a class="btn" href="https://www.instagram.com/lacuevadelnarrador/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r=".6" fill="currentColor"/></svg>Ir a nuestro Instagram</a>
+      </div>
+    </section>
+  </main>
+
+  <nav class="nav" aria-label="Navegación principal">
+    <a href="index.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 21V11a8 8 0 0116 0v10M9 21v-6a3 3 0 016 0v6"/></svg>Inicio</a>
+    <a href="calendario.html"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Calendario</a>
+    <a href="curso.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5c3-1 6-1 8 1 2-2 5-2 8-1v13c-3-1-6-1-8 1-2-2-5-2-8-1z"/><path d="M12 6v13"/></svg>Curso</a>
+    <a href="biblioteca.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3h4v18H5zM11 3h4v18h-4zM17 5l3.5 1-4 15-3.5-1z"/></svg>Biblioteca</a>
+    <a href="mas.html" class="on" aria-current="page"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="5" cy="12" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="19" cy="12" r="1.5"/></svg>Más</a>
+  </nav>
+</div>
+<script>
+if ("serviceWorker" in navigator) window.addEventListener("load", () => navigator.serviceWorker.register("sw.js"));
+</script>
+<script src="tipos.js"></script>
+<script>
+const ACT=[
+  ["clase","Clases","Sesiones sobre técnica y oficio, donde entre todos vemos cómo se construye una historia: personajes, worldbuilding, la raya de diálogo, los adverbios, las figuras literarias, cómo escribir una sinopsis o una propuesta literaria, y mucho más."],
+  ["marketing","Clases de marketing","Todo lo que un escritor necesita para darse a conocer: crear un perfil de Instagram, entender el algoritmo, construir comunidad, abrir tu perfil de autor en Amazon y desarrollar tu marca personal."],
+  ["sesion","Sesiones de escritura conjunta","Nos juntamos a escribir, cada uno con su proyecto personal o con el común, y compartimos dudas y preguntas según van surgiendo. También hay ratos para leer."],
+  ["invitado","Charlas con invitados","Viene alguien del mundo del libro (un autor o autora conocidos, una editorial, un librero, una correctora) y nos cuenta su experiencia para ayudarnos."],
+  ["reto","Retos","Cada mes publicamos en Instagram un reto de escritura, normalmente ligado a lo que hemos visto en las clases y en las clases de marketing, para ponerlo en práctica."]
+];
+document.getElementById("actividades").innerHTML=ACT.map(a=>'<article class="act"><span class="tp" style="background:'+tipo(a[0]).c+'" aria-hidden="true"></span><div><h3>'+a[1]+'</h3><p>'+a[2]+'</p></div></article>').join("");
+</script>
+</body>
+</html>
