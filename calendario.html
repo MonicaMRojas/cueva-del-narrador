@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Calendario · La Cueva del Narrador</title>
+<meta name="theme-color" content="#528A93">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="img/icon-192.png">
+<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="app">
+  <header class="pagehead">
+    <div class="top">
+      <div class="brand">
+        <img src="img/logo-arco.png" alt="Logo de La Cueva del Narrador">
+        <span>La Cueva<br>del Narrador</span>
+      </div>
+      <div class="avatar" aria-label="Tu perfil">M</div>
+    </div>
+    <h1>Calendario</h1>
+    <p class="sub">Clases, charlas, retos y encuentros del curso.</p>
+  </header>
+
+  <main>
+    <section aria-label="Calendario mensual">
+      <div class="monthbar">
+        <button class="iconbtn" id="prev" aria-label="Mes anterior">&#8249;</button>
+        <h2 id="titulo-mes" aria-live="polite"></h2>
+        <button class="iconbtn" id="next" aria-label="Mes siguiente">&#8250;</button>
+      </div>
+      <div class="cal" style="margin-top:12px">
+        <div class="dow"><span>L</span><span>M</span><span>X</span><span>J</span><span>V</span><span>S</span><span>D</span></div>
+        <div class="days" id="dias"></div>
+      </div>
+      <div class="legend" id="leyenda"></div>
+    </section>
+
+    <section id="eventos" aria-label="Lista de eventos">
+      <div class="listhead"><h2 id="titulo-lista"></h2><button class="chip" id="ver-mes" hidden>Ver todo el mes</button></div>
+      <div id="lista"></div>
+    </section>
+  </main>
+
+  <nav class="nav" aria-label="Navegación principal">
+    <a href="index.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 21V11a8 8 0 0116 0v10M9 21v-6a3 3 0 016 0v6"/></svg>Inicio</a>
+    <a href="calendario.html" class="on" aria-current="page"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Calendario</a>
+    <a href="#"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5c3-1 6-1 8 1 2-2 5-2 8-1v13c-3-1-6-1-8 1-2-2-5-2-8-1z"/><path d="M12 6v13"/></svg>Curso</a>
+    <a href="#"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3h4v18H5zM11 3h4v18h-4zM17 5l3.5 1-4 15-3.5-1z"/></svg>Biblioteca</a>
+    <a href="#"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="5" cy="12" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="19" cy="12" r="1.5"/></svg>Más</a>
+  </nav>
+</div>
+<script src="eventos.js"></script>
+<script>
+const MESES=['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+const DIAS=['dom','lun','mar','mié','jue','vie','sáb'];
+const TIPOS={
+  clase:{n:'Clase',c:'var(--teal)'},
+  invitado:{n:'Charla invitada',c:'var(--amber)'},
+  reto:{n:'Reto',c:'var(--aqua)'},
+  club:{n:'Encuentro del club',c:'#E8A9A9'}
+};
+const hoy=new Date();
+let anio=hoy.getFullYear(), mes=hoy.getMonth(), sel=null;
+
+const esc=t=>String(t==null?'':t).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const clave=(a,m,d)=>a+'-'+String(m+1).padStart(2,'0')+'-'+String(d).padStart(2,'0');
+const partes=f=>{const p=f.split('-').map(Number);return {a:p[0],m:p[1]-1,d:p[2]};};
+const orden=(x,y)=>(x.fecha+(x.hora||'')).localeCompare(y.fecha+(y.hora||''));
+
+function eventosDe(prefijo){return EVENTOS.filter(e=>e.fecha.startsWith(prefijo)).sort(orden);}
+
+function pintarLeyenda(){
+  document.getElementById('leyenda').innerHTML=Object.values(TIPOS).map(t=>'<span><i style="background:'+t.c+'"></i>'+t.n+'</span>').join('');
+}
+
+function pintar(){
+  document.getElementById('titulo-mes').textContent=MESES[mes]+' '+anio;
+  const prefMes=anio+'-'+String(mes+1).padStart(2,'0');
+  const delMes=eventosDe(prefMes);
+  const primero=(new Date(anio,mes,1).getDay()+6)%7;
+  const total=new Date(anio,mes+1,0).getDate();
+  let h='';
+  for(let i=0;i<primero;i++) h+='<span class="day blank"></span>';
+  for(let d=1;d<=total;d++){
+    const k=clave(anio,mes,d);
+    const evs=delMes.filter(e=>e.fecha===k);
+    const dots=evs.slice(0,3).map(e=>'<i style="background:'+(TIPOS[e.tipo]||TIPOS.club).c+'"></i>').join('');
+    const esHoy=(anio===hoy.getFullYear()&&mes===hoy.getMonth()&&d===hoy.getDate());
+    const cls='day'+(esHoy?' today':'')+(sel===k?' sel':'');
+    const label=d+' de '+MESES[mes]+(evs.length?', '+evs.length+(evs.length===1?' evento':' eventos'):'');
+    h+='<button class="'+cls+'" data-k="'+k+'" aria-label="'+label+'"'+(sel===k?' aria-pressed="true"':'')+'>'+d+'<span class="dots">'+dots+'</span></button>';
+  }
+  document.getElementById('dias').innerHTML=h;
+
+  const lista=sel?delMes.filter(e=>e.fecha===sel):delMes;
+  const tl=document.getElementById('titulo-lista');
+  if(sel){const p=partes(sel);tl.textContent=p.d+' de '+MESES[p.m];} else tl.textContent='Eventos de '+MESES[mes].toLowerCase();
+  document.getElementById('ver-mes').hidden=!sel;
+  document.getElementById('lista').innerHTML=lista.length?lista.map(e=>{
+    const p=partes(e.fecha), t=TIPOS[e.tipo]||TIPOS.club;
+    const dia=DIAS[new Date(p.a,p.m,p.d).getDay()];
+    return '<article class="ev"><div class="date" style="background:'+t.c+';color:'+(e.tipo==='clase'?'#fff':'var(--teal-deep)')+'"><b>'+String(p.d).padStart(2,'0')+'</b><small>'+dia+'</small></div><div><h3>'+esc(e.titulo)+'</h3><p>'+(e.hora?esc(e.hora)+' h':'')+(e.lugar?' · '+esc(e.lugar):'')+'</p>'+(e.detalle?'<p>'+esc(e.detalle)+'</p>':'')+'<span class="badge"><i style="background:'+t.c+'"></i>'+t.n+'</span></div></article>';
+  }).join(''):'<p class="empty">'+(sel?'Ese día no hay nada previsto.':'Este mes no hay eventos programados.')+'</p>';
+}
+
+document.getElementById('dias').addEventListener('click',ev=>{
+  const b=ev.target.closest('.day[data-k]'); if(!b) return;
+  sel=(sel===b.dataset.k)?null:b.dataset.k; pintar();
+});
+document.getElementById('ver-mes').addEventListener('click',()=>{sel=null;pintar();});
+document.getElementById('prev').addEventListener('click',()=>{mes--;if(mes<0){mes=11;anio--;}sel=null;pintar();});
+document.getElementById('next').addEventListener('click',()=>{mes++;if(mes>11){mes=0;anio++;}sel=null;pintar();});
+pintarLeyenda(); pintar();
+if("serviceWorker" in navigator) window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js"));
+</script>
+</body>
+</html>
