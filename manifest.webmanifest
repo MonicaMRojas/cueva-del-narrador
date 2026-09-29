@@ -1,0 +1,21 @@
+{
+  "name": "La Cueva del Narrador",
+  "short_name": "La Cueva",
+  "description": "Club de escritura en Sevilla. Creamos, aprendemos y escribimos juntos.",
+  "lang": "es",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#528A93",
+  "theme_color": "#528A93",
+  "icons": [
+    { "src": "img/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "img/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "img/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "Reto del mes", "url": "./#reto", "icons": [{ "src": "img/icon-192.png", "sizes": "192x192" }] },
+    { "name": "Próximos eventos", "url": "./#eventos", "icons": [{ "src": "img/icon-192.png", "sizes": "192x192" }] },
+    { "name": "Lecturas del mes", "url": "./#lecturas", "icons": [{ "src": "img/icon-192.png", "sizes": "192x192" }] }
+  ]
+}
