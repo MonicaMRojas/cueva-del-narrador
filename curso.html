@@ -49,15 +49,9 @@
     <a href="#"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="5" cy="12" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="19" cy="12" r="1.5"/></svg>Más</a>
   </nav>
 </div>
+<script src="tipos.js"></script>
 <script src="curso.js"></script>
 <script>
-const TIPOS={
-  clase:{n:'Clase',c:'#528A93'},
-  marketing:{n:'Clase de marketing',c:'#8797DB'},
-  invitado:{n:'Charla con invitados',c:'#FFBA55'}
-};
-const OTRO={n:'Otro',c:'#9DB4B8'};
-const tipo=k=>TIPOS[k]||OTRO;
 const esc=t=>String(t==null?'':t).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const norm=t=>String(t||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
 const fechaBonita=f=>f?new Date(f+'T12:00:00').toLocaleDateString('es-ES',{day:'numeric',month:'short',year:'numeric'}):'';
