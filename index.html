@@ -41,9 +41,11 @@ h1,h2,h3{font-family:'Oswald','Arial Narrow',Impact,sans-serif;text-transform:up
 .arch .rule{font-size:16px;text-align:center;margin-bottom:14px}
 .words{list-style:none;padding:0;display:grid;gap:8px;margin-bottom:16px}
 .words li{background:var(--card);border-left:5px solid var(--amber);padding:9px 14px;font-style:italic;font-size:17px}
-.deadline{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.deadline{display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px}
 .deadline p{color:var(--muted);font-size:14px;font-style:italic}
 .btn{background:var(--teal);color:#fff;border:0;border-radius:999px;padding:11px 20px;font-family:'Oswald',sans-serif;font-weight:500;font-size:15px;text-transform:uppercase;letter-spacing:.03em;cursor:pointer}
+a.btn{display:inline-flex;align-items:center;gap:9px;text-decoration:none}
+.btn svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
 .btn:focus-visible,.nav button:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
 
 main{padding:24px 18px 0;display:grid;gap:26px}
@@ -63,6 +65,7 @@ main{padding:24px 18px 0;display:grid;gap:26px}
 .book{flex:0 0 116px;scroll-snap-align:start}
 .cover{height:164px;border-radius:4px 10px 10px 4px;padding:12px 10px;display:flex;align-items:flex-end;font-family:'Oswald',sans-serif;font-weight:700;text-transform:uppercase;font-size:17px;line-height:1.05;box-shadow:inset 6px 0 0 rgba(0,0,0,.14)}
 .book p{font-size:13px;color:var(--muted);margin-top:6px}
+.book .by{font-style:italic;color:var(--title);margin-top:1px}
 .c1{background:var(--amber);color:var(--teal-deep)}.c2{background:var(--teal);color:#fff}.c3{background:var(--aqua);color:var(--teal-deep)}.c4{background:#E8A9A9;color:#5a2b2b}
 
 .note{background:var(--teal);color:#fff;border-radius:14px;padding:18px}
@@ -99,7 +102,7 @@ main{padding:24px 18px 0;display:grid;gap:26px}
       </ul>
       <div class="deadline">
         <p>Tienes una semana para enviarlo.</p>
-        <button class="btn">Enviar mi texto</button>
+        <a class="btn" href="https://www.instagram.com/lacuevadelnarrador/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r=".6" fill="currentColor"/></svg>Súbelo a Instagram y etiquétanos</a>
       </div>
     </section>
   </header>
@@ -117,13 +120,23 @@ main{padding:24px 18px 0;display:grid;gap:26px}
       </article>
     </section>
 
-    <section id="lecturas">
-      <div class="sec-head"><h2>Lecturas del mes</h2><a href="#">Ir a la biblioteca</a></div>
+    <section id="biblioteca">
+      <div class="sec-head"><h2>Nuestra biblioteca</h2><a href="#">Ver todos</a></div>
       <div class="shelf">
         <div class="book"><div class="cover c1">Título del libro</div><p>Autor/a</p></div>
         <div class="book"><div class="cover c2">Título del libro</div><p>Autor/a</p></div>
         <div class="book"><div class="cover c3">Título del libro</div><p>Autor/a</p></div>
         <div class="book"><div class="cover c4">Título del libro</div><p>Autor/a</p></div>
+      </div>
+    </section>
+
+    <section id="recomendados">
+      <div class="sec-head"><h2>Libros recomendados por nuestros socios</h2><a href="#">Recomienda uno</a></div>
+      <div class="shelf">
+        <div class="book"><div class="cover c3">Título del libro</div><p>Autor/a</p><p class="by">Recomienda: socio/a</p></div>
+        <div class="book"><div class="cover c4">Título del libro</div><p>Autor/a</p><p class="by">Recomienda: socio/a</p></div>
+        <div class="book"><div class="cover c1">Título del libro</div><p>Autor/a</p><p class="by">Recomienda: socio/a</p></div>
+        <div class="book"><div class="cover c2">Título del libro</div><p>Autor/a</p><p class="by">Recomienda: socio/a</p></div>
       </div>
     </section>
 
