@@ -46,34 +46,17 @@
   <main>
     <section id="eventos">
       <div class="sec-head"><h2>Próximos eventos</h2><a href="calendario.html">Ver calendario</a></div>
-      <article class="event">
-        <div class="date"><b>08</b><small>Oct</small></div>
-        <div><h3>Clase: diálogos que suenan reales</h3><p>Sesión del club · 19:30</p></div>
-      </article>
-      <article class="event guest">
-        <div class="date"><b>22</b><small>Oct</small></div>
-        <div><h3>Charla con autora invitada</h3><p>Invitada del club · 19:30</p></div>
-      </article>
+      <div id="proximos"></div>
     </section>
 
     <section id="biblioteca">
       <div class="sec-head"><h2>Nuestra biblioteca</h2><a href="biblioteca.html">Ver todos</a></div>
-      <div class="shelf">
-        <div class="book"><div class="cover c1">Título del libro</div><p>Autor/a</p></div>
-        <div class="book"><div class="cover c2">Título del libro</div><p>Autor/a</p></div>
-        <div class="book"><div class="cover c3">Título del libro</div><p>Autor/a</p></div>
-        <div class="book"><div class="cover c4">Título del libro</div><p>Autor/a</p></div>
-      </div>
+      <div class="shelf" id="est-biblioteca"></div>
     </section>
 
     <section id="recomendados">
       <div class="sec-head"><h2>Libros recomendados por nuestros socios</h2><a href="biblioteca.html#recomendados">Ver más</a></div>
-      <div class="shelf">
-        <div class="book"><div class="cover c3">Título del libro</div><p>Autor/a</p><p class="by">Recomienda: socio/a</p></div>
-        <div class="book"><div class="cover c4">Título del libro</div><p>Autor/a</p><p class="by">Recomienda: socio/a</p></div>
-        <div class="book"><div class="cover c1">Título del libro</div><p>Autor/a</p><p class="by">Recomienda: socio/a</p></div>
-        <div class="book"><div class="cover c2">Título del libro</div><p>Autor/a</p><p class="by">Recomienda: socio/a</p></div>
-      </div>
+      <div class="shelf" id="est-recomendados"></div>
     </section>
 
     <section class="note">
@@ -91,6 +74,35 @@
     <a href="#"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="5" cy="12" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="19" cy="12" r="1.5"/></svg>Más</a>
   </nav>
 </div>
+<script src="tipos.js"></script>
+<script src="eventos.js"></script>
+<script src="libros.js"></script>
+<script>
+(function(){
+  const MES=['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
+  const esc=t=>String(t==null?'':t).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const h=new Date();
+  const hoy=h.getFullYear()+'-'+String(h.getMonth()+1).padStart(2,'0')+'-'+String(h.getDate()).padStart(2,'0');
+  const proximos=EVENTOS.filter(e=>e.fecha>=hoy).sort((x,y)=>(x.fecha+(x.hora||'')).localeCompare(y.fecha+(y.hora||''))).slice(0,3);
+  document.getElementById('proximos').innerHTML=proximos.length?proximos.map(e=>{
+    const t=tipo(e.tipo), p=e.fecha.split('-').map(Number);
+    return '<article class="event"><div class="date" style="background:'+t.c+';color:'+t.t+'"><b>'+String(p[2]).padStart(2,'0')+'</b><small>'+MES[p[1]-1]+'</small></div><div><h3>'+esc(e.titulo)+'</h3><p>'+t.n+(e.hora?' · '+esc(e.hora)+' h':'')+(e.lugar?' · '+esc(e.lugar):'')+'</p></div></article>';
+  }).join(''):'<p class="empty">No hay eventos próximos. Vuelve pronto.</p>';
+
+  // Últimos libros añadidos (los más recientes primero)
+  const MAX=6;
+  const masNuevos=lista=>lista.map((l,i)=>({l,i})).sort((x,y)=>(y.l.alta||'').localeCompare(x.l.alta||'')||y.i-x.i).map(o=>o.l);
+  function estante(id,libros,vacio,conRecomienda){
+    document.getElementById(id).innerHTML=libros.length?libros.slice(0,MAX).map(l=>{
+      const c=colorPortada(l.titulo);
+      const portada=l.portada?'<img class="cover" src="'+esc(l.portada)+'" alt="Portada de '+esc(l.titulo)+'" style="width:100%;object-fit:cover;padding:0">':'<div class="cover" style="background:'+c[0]+';color:'+c[1]+'">'+esc(l.titulo)+'</div>';
+      return '<div class="book">'+portada+'<p>'+esc(l.autor)+'</p>'+(conRecomienda&&l.recomienda?'<p class="by">Recomienda: '+esc(l.recomienda)+'</p>':'')+'</div>';
+    }).join(''):'<p class="empty">'+vacio+'</p>';
+  }
+  estante('est-biblioteca',masNuevos(BIBLIOTECA.filter(l=>l.disponible)),'Ahora mismo no hay libros disponibles.',false);
+  estante('est-recomendados',masNuevos(RECOMENDADOS),'Todavía no hay recomendaciones. ¡Sé el primero en recomendar un libro!',true);
+})();
+</script>
 <script>
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => navigator.serviceWorker.register("sw.js"));
