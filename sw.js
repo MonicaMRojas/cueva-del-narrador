@@ -1,11 +1,13 @@
 // Service worker de La Cueva del Narrador
 // Al cambiar archivos importantes, sube el número de versión para forzar la actualización.
-const VERSION = 'cueva-v3';
+const VERSION = 'cueva-v4';
 const ARCHIVOS = [
   './',
   'index.html',
   'calendario.html',
   'biblioteca.html',
+  'curso.html',
+  'curso.js',
   'libros.js',
   'styles.css',
   'eventos.js',
