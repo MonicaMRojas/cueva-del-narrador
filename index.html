@@ -29,16 +29,13 @@
     <p class="sub">Creamos, aprendemos y escribimos juntos.</p>
     <section class="arch" id="reto" aria-label="Reto del mes">
       <span class="tag">Reto del mes</span>
-      <h1>Escribe 600 palabras</h1>
-      <p class="rule">Tu texto tiene que incluir:</p>
-      <ul class="words">
-        <li>Un naufragio.</li>
-        <li>Una promesa rota.</li>
-        <li>Una dama blanca.</li>
-      </ul>
+      <h1 id="reto-titulo"></h1>
+      <p class="rule" id="reto-regla"></p>
+      <ul class="words" id="reto-lista"></ul>
       <div class="deadline">
-        <p>Tienes una semana para enviarlo.</p>
+        <p id="reto-plazo"></p>
         <a class="btn" href="https://www.instagram.com/lacuevadelnarrador/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r=".6" fill="currentColor"/></svg>Súbelo a Instagram y etiquétanos</a>
+        <a class="vermas" href="retos.html">Ver todos los retos</a>
       </div>
     </section>
   </header>
@@ -71,12 +68,13 @@
     <a href="calendario.html"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Calendario</a>
     <a href="curso.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5c3-1 6-1 8 1 2-2 5-2 8-1v13c-3-1-6-1-8 1-2-2-5-2-8-1z"/><path d="M12 6v13"/></svg>Curso</a>
     <a href="biblioteca.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3h4v18H5zM11 3h4v18h-4zM17 5l3.5 1-4 15-3.5-1z"/></svg>Biblioteca</a>
-    <a href="#"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="5" cy="12" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="19" cy="12" r="1.5"/></svg>Más</a>
+    <a href="mas.html"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="5" cy="12" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="19" cy="12" r="1.5"/></svg>Más</a>
   </nav>
 </div>
 <script src="tipos.js"></script>
 <script src="eventos.js"></script>
 <script src="libros.js"></script>
+<script src="retos.js"></script>
 <script>
 (function(){
   const MES=['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
@@ -101,6 +99,18 @@
   }
   estante('est-biblioteca',masNuevos(BIBLIOTECA.filter(l=>l.disponible)),'Ahora mismo no hay libros disponibles.',false);
   estante('est-recomendados',masNuevos(RECOMENDADOS),'Todavía no hay recomendaciones. ¡Sé el primero en recomendar un libro!',true);
+
+  // Reto actual: el más reciente cuya fecha de inicio ya ha llegado
+  const fechaL=f=>new Date(f+'T12:00:00').toLocaleDateString('es-ES',{day:'numeric',month:'long'});
+  const reto=RETOS.slice().sort((x,y)=>y.inicio.localeCompare(x.inicio)).find(r=>r.inicio<=hoy);
+  if(reto){
+    document.getElementById('reto-titulo').textContent=reto.palabras?'Escribe '+reto.palabras+' palabras':'Escribe tu texto';
+    document.getElementById('reto-regla').textContent=(reto.incluir||[]).length?'Tu texto tiene que incluir:':'';
+    document.getElementById('reto-lista').innerHTML=(reto.incluir||[]).map(x=>'<li>'+esc(x)+'</li>').join('');
+    document.getElementById('reto-plazo').textContent=reto.plazo?(reto.plazo>=hoy?'Plazo: hasta el '+fechaL(reto.plazo)+'.':'El plazo terminó el '+fechaL(reto.plazo)+'.'):'';
+  }else{
+    document.getElementById('reto-titulo').textContent='Muy pronto, nuevo reto';
+  }
 })();
 </script>
 <script>
