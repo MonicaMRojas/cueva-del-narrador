@@ -52,12 +52,11 @@
     <a href="#"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="5" cy="12" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="19" cy="12" r="1.5"/></svg>Más</a>
   </nav>
 </div>
+<script src="tipos.js"></script>
 <script src="libros.js"></script>
 <script>
-const PALETA=[['#528A93','#FFFFFF'],['#8797DB','#14262A'],['#E8A9A9','#14262A'],['#FFBA55','#14262A'],['#A9DDE2','#14262A']];
 const esc=t=>String(t==null?'':t).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const norm=t=>String(t||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
-const color=t=>PALETA[[...t].reduce((a,c)=>a+c.charCodeAt(0),0)%PALETA.length];
 
 let pestana=(location.hash==='#recomendados')?'recomendados':'biblioteca';
 let genero='Todos', texto='', soloDisp=false;
@@ -82,7 +81,7 @@ function pintarLista(){
     &&(!(pestana==='biblioteca'&&soloDisp)||l.disponible));
   document.getElementById('cuenta').textContent=lista.length+(lista.length===1?' libro':' libros');
   document.getElementById('lista').innerHTML=lista.length?lista.map(l=>{
-    const [c,t]=color(l.titulo);
+    const [c,t]=colorPortada(l.titulo);
     const portada=l.portada?'<img class="portada" src="'+esc(l.portada)+'" alt="Portada de '+esc(l.titulo)+'">':'<div class="portada" style="background:'+c+';color:'+t+'" aria-hidden="true">'+esc(l.titulo.charAt(0))+'</div>';
     const estado=(pestana==='biblioteca')?'<span class="estado '+(l.disponible?'ok':'no')+'">'+(l.disponible?'Disponible':'Prestado')+'</span>':'';
     const por=(pestana==='recomendados'&&l.recomienda)?'<p class="por">Recomienda: '+esc(l.recomienda)+'</p>':'';
