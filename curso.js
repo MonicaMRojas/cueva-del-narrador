@@ -1,104 +1,51 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Curso · La Cueva del Narrador</title>
-<meta name="theme-color" content="#528A93">
-<link rel="manifest" href="manifest.webmanifest">
-<link rel="icon" href="img/icon-192.png">
-<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
-</head>
-<body>
-<div class="app">
-  <header class="pagehead">
-    <div class="top">
-      <div class="brand">
-        <img src="img/logo-arco.png" alt="Logo de La Cueva del Narrador">
-        <span>La Cueva<br>del Narrador</span>
-      </div>
-      <div class="avatar" aria-label="Tu perfil">M</div>
-    </div>
-    <h1>Curso</h1>
-    <p class="sub">Charlas y apuntes de todos los cursos del club.</p>
-  </header>
+// CURSOS Y APUNTES DEL CLUB (los datos de abajo son de EJEMPLO: sustitúyelos por los vuestros)
+//
+// Cada curso tiene una lista de charlas, y cada charla una lista de documentos.
+// Para añadir una charla, copia un bloque { ... }, pégalo debajo (con su coma) y cambia los datos.
+// Para añadir un documento a una charla, copia una línea de "documentos" y cambia el nombre.
+//
+// fecha:    AAAA-MM-DD (puede ir vacía: "")
+// tipo:     "clase", "marketing" o "invitado"
+// ponente:  quien da la charla (puede ir vacío: "")
+// tema:     una frase que resuma la charla (puede ir vacía: "")
+// formato:  "PDF" o "Word"
+// enlace:   déjalo vacío ("") por ahora. Los apuntes se abrirán cuando estén en la base de datos.
+//
+// IMPORTANTE: no subas los PDF ni los Word a GitHub mientras la web sea pública.
 
-  <main>
-    <div class="tabs" id="tabs" role="tablist"></div>
-    <p class="periodo" id="periodo"></p>
-
-    <section aria-label="Filtros">
-      <input class="buscador" id="q" type="search" placeholder="Buscar una charla" aria-label="Buscar una charla">
-      <div class="chips" id="tipos" aria-label="Filtrar por tipo"></div>
-    </section>
-
-    <section aria-live="polite">
-      <p class="cuenta" id="cuenta"></p>
-      <div id="lista"></div>
-    </section>
-  </main>
-
-  <nav class="nav" aria-label="Navegación principal">
-    <a href="index.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 21V11a8 8 0 0116 0v10M9 21v-6a3 3 0 016 0v6"/></svg>Inicio</a>
-    <a href="calendario.html"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Calendario</a>
-    <a href="curso.html" class="on" aria-current="page"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5c3-1 6-1 8 1 2-2 5-2 8-1v13c-3-1-6-1-8 1-2-2-5-2-8-1z"/><path d="M12 6v13"/></svg>Curso</a>
-    <a href="biblioteca.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3h4v18H5zM11 3h4v18h-4zM17 5l3.5 1-4 15-3.5-1z"/></svg>Biblioteca</a>
-    <a href="#"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="5" cy="12" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="19" cy="12" r="1.5"/></svg>Más</a>
-  </nav>
-</div>
-<script src="curso.js"></script>
-<script>
-const TIPOS={
-  clase:{n:'Clase',c:'#528A93'},
-  marketing:{n:'Clase de marketing',c:'#8797DB'},
-  invitado:{n:'Charla con invitados',c:'#FFBA55'}
-};
-const OTRO={n:'Otro',c:'#9DB4B8'};
-const tipo=k=>TIPOS[k]||OTRO;
-const esc=t=>String(t==null?'':t).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const norm=t=>String(t||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
-const fechaBonita=f=>f?new Date(f+'T12:00:00').toLocaleDateString('es-ES',{day:'numeric',month:'short',year:'numeric'}):'';
-
-let cursoId=CURSOS[0].id, filtroTipo='todos', texto='';
-const cursoActual=()=>CURSOS.find(c=>c.id===cursoId)||CURSOS[0];
-
-function pintarTabs(){
-  document.getElementById('tabs').innerHTML=CURSOS.map(c=>'<button class="tab" role="tab" data-id="'+esc(c.id)+'" aria-selected="'+(c.id===cursoId)+'">'+esc(c.nombre)+'</button>').join('');
-  document.getElementById('tabs').style.gridTemplateColumns='repeat('+CURSOS.length+',1fr)';
-  document.getElementById('periodo').textContent=cursoActual().periodo;
-}
-
-function pintarTipos(){
-  const ts=[...new Set(cursoActual().charlas.map(c=>c.tipo))];
-  if(filtroTipo!=='todos'&&!ts.includes(filtroTipo)) filtroTipo='todos';
-  const chips=[['todos','Todas']].concat(ts.map(t=>[t,tipo(t).n]));
-  document.getElementById('tipos').innerHTML=chips.map(([k,n])=>'<button class="chip'+(k===filtroTipo?' on':'')+'" data-t="'+esc(k)+'" aria-pressed="'+(k===filtroTipo)+'">'+esc(n)+'</button>').join('');
-}
-
-function pintarLista(){
-  const q=norm(texto);
-  const lista=cursoActual().charlas.slice().sort((a,b)=>(a.fecha||'9999').localeCompare(b.fecha||'9999')).filter(c=>
-    (filtroTipo==='todos'||c.tipo===filtroTipo)&&(!q||norm(c.titulo).includes(q)||norm(c.tema).includes(q)||norm(c.ponente).includes(q)));
-  document.getElementById('cuenta').textContent=lista.length+(lista.length===1?' charla':' charlas');
-  document.getElementById('lista').innerHTML=lista.length?lista.map(c=>{
-    const t=tipo(c.tipo);
-    const docs=(c.documentos||[]).map(d=>d.enlace
-      ?'<a class="doc" href="'+esc(d.enlace)+'" target="_blank" rel="noopener"><span class="fmt">'+esc(d.formato)+'</span><span class="dn">'+esc(d.nombre)+'</span></a>'
-      :'<div class="doc off"><span class="fmt">'+esc(d.formato)+'</span><span class="dn">'+esc(d.nombre)+'</span><span class="pend">Pronto</span></div>').join('');
-    const meta=[fechaBonita(c.fecha),c.ponente].filter(Boolean).map(esc).join(' · ');
-    return '<details class="charla"><summary><span class="tp" style="background:'+t.c+'" aria-hidden="true"></span><span class="st"><b>'+esc(c.titulo)+'</b><small>'+esc(t.n)+(meta?' · '+meta:'')+'</small></span></summary><div class="cuerpo">'+(c.tema?'<p class="tema">'+esc(c.tema)+'</p>':'')+(docs?'<div class="docs">'+docs+'</div>':'<p class="empty">Todavía no hay documentos de esta charla.</p>')+'</div></details>';
-  }).join(''):'<p class="empty">No hay charlas que coincidan con la búsqueda.</p>';
-}
-
-function todo(){pintarTabs();pintarTipos();pintarLista();}
-document.getElementById('tabs').addEventListener('click',e=>{const b=e.target.closest('.tab');if(!b)return;cursoId=b.dataset.id;filtroTipo='todos';todo();});
-document.getElementById('tipos').addEventListener('click',e=>{const b=e.target.closest('.chip');if(!b)return;filtroTipo=b.dataset.t;pintarTipos();pintarLista();});
-document.getElementById('q').addEventListener('input',e=>{texto=e.target.value;pintarLista();});
-todo();
-if("serviceWorker" in navigator) window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js"));
-</script>
-</body>
-</html>
+const CURSOS = [
+  {
+    id: "2027",
+    nombre: "Curso 2027",
+    periodo: "Septiembre 2026 - junio 2027",
+    charlas: [
+      { titulo: "Charla de ejemplo 1", fecha: "2026-09-10", tipo: "clase", ponente: "", tema: "Ejemplo de resumen de la charla.",
+        documentos: [
+          { nombre: "Apuntes de ejemplo 1", formato: "PDF", enlace: "" },
+          { nombre: "Ejercicios de ejemplo 1", formato: "Word", enlace: "" }
+        ] },
+      { titulo: "Charla de ejemplo 2", fecha: "2026-09-17", tipo: "marketing", ponente: "", tema: "Ejemplo de clase de marketing.",
+        documentos: [
+          { nombre: "Apuntes de ejemplo 2", formato: "PDF", enlace: "" }
+        ] },
+      { titulo: "Charla de ejemplo 3", fecha: "2026-09-24", tipo: "invitado", ponente: "Nombre del invitado/a", tema: "Ejemplo de charla con invitado.",
+        documentos: [] }
+    ]
+  },
+  {
+    id: "2026",
+    nombre: "Curso 2026",
+    periodo: "",
+    charlas: [
+      { titulo: "Charla de ejemplo A", fecha: "", tipo: "clase", ponente: "", tema: "Aquí irán las 16 charlas del curso 2026.",
+        documentos: [
+          { nombre: "Apuntes de ejemplo A", formato: "PDF", enlace: "" },
+          { nombre: "Apuntes de ejemplo A (Word)", formato: "Word", enlace: "" }
+        ] },
+      { titulo: "Charla de ejemplo B", fecha: "", tipo: "invitado", ponente: "Nombre del invitado/a", tema: "",
+        documentos: [
+          { nombre: "Apuntes de ejemplo B", formato: "PDF", enlace: "" }
+        ] }
+    ]
+  }
+];
