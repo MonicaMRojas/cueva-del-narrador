@@ -4,6 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>La Cueva del Narrador</title>
+<meta name="theme-color" content="#528A93">
+<link rel="icon" href="img/icon-192.png">
+<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
 <style>
@@ -21,13 +24,14 @@ body{background:var(--teal-deep);font-family:'Lora',Georgia,serif;color:var(--in
 h1,h2,h3{font-family:'Oswald','Arial Narrow',Impact,sans-serif;text-transform:uppercase;line-height:1.02;font-weight:700}
 
 .hero{background:var(--teal);padding:calc(22px + env(safe-area-inset-top,0px)) 22px 0;color:#fff;overflow:hidden}
-.top{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+.top{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
 .brand{display:flex;align-items:center;gap:10px}
-.brand svg{width:34px;height:34px}
+.brand img{height:40px;width:auto;display:block}
 .brand span{font-family:'Oswald',sans-serif;font-weight:700;font-size:15px;line-height:1;text-transform:uppercase;letter-spacing:.02em}
 .avatar{width:38px;height:38px;border-radius:50%;background:var(--aqua);color:var(--teal-deep);display:grid;place-items:center;font-family:'Oswald',sans-serif;font-weight:700}
-.hello{font-style:italic;color:var(--aqua);margin-bottom:6px}
-.arch{background:var(--bg);color:var(--ink);border-radius:999px 999px 0 0;margin:14px 6px 0;padding:56px 26px 26px;position:relative}
+.tagline{font-family:'Oswald',sans-serif;font-weight:700;text-transform:uppercase;font-size:26px;line-height:1.05;color:var(--amber)}
+.sub{font-style:italic;color:var(--aqua);margin-top:4px}
+.arch{background:var(--bg);color:var(--ink);border-radius:999px 999px 0 0;margin:18px 6px 0;padding:56px 26px 26px;position:relative}
 .arch .tag{position:absolute;top:-4px;left:50%;transform:translateX(-50%) rotate(-2deg);background:var(--amber);color:var(--teal-deep);font-family:'Oswald',sans-serif;font-weight:700;padding:6px 16px;text-transform:uppercase;font-size:14px;white-space:nowrap}
 .arch h1{font-size:44px;color:var(--title);text-align:center;margin:8px 0 12px}
 .arch .rule{font-size:16px;text-align:center;margin-bottom:14px}
@@ -73,12 +77,13 @@ main{padding:24px 18px 0;display:grid;gap:26px}
   <header class="hero">
     <div class="top">
       <div class="brand">
-        <svg viewBox="0 0 40 40" aria-hidden="true"><path d="M5 38V19C5 9 12 3 20 3s15 6 15 16v19h-6V19c0-6-4-10-9-10s-9 4-9 10v19z" fill="#EBEDEF"/><path d="M20 15l5 8-2 5h-6l-2-5z" fill="#EBEDEF"/><rect x="16" y="30" width="8" height="3" fill="#EBEDEF"/></svg>
+        <img src="img/logo-arco.png" alt="Logo de La Cueva del Narrador">
         <span>La Cueva<br>del Narrador</span>
       </div>
       <div class="avatar" aria-label="Tu perfil">M</div>
     </div>
-    <p class="hello">Bienvenido a la cueva, narrador.</p>
+    <p class="tagline">Club de escritura en Sevilla</p>
+    <p class="sub">Creamos, aprendemos y escribimos juntos.</p>
     <section class="arch" aria-label="Reto del mes">
       <span class="tag">Reto del mes</span>
       <h1>Escribe 600 palabras</h1>
