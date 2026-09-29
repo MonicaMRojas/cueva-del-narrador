@@ -1,28 +1,137 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>La Cueva del Narrador</title>
-  <style>
-    body {
-      margin: 0;
-      min-height: 100vh;
-      display: grid;
-      place-items: center;
-      background: #528A93;
-      color: #EBEDEF;
-      font-family: Arial, sans-serif;
-      text-align: center;
-    }
-    h1 { font-size: 2.5rem; margin: 0 0 .5rem; }
-    p { color: #FFBA55; font-size: 1.2rem; margin: 0; }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>La Cueva del Narrador</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --teal:#528A93; --teal-deep:#2F5860; --amber:#FFBA55; --aqua:#A9DDE2;
+  --bg:#EBEDEF; --card:#FFFFFF; --ink:#22393E; --muted:#5F767B;
+  --nav:#2F5860; --navink:#EBEDEF; --title:#528A93;
+}
+@media (prefers-color-scheme:dark){
+  :root{--bg:#17292D; --card:#1F3A40; --ink:#E9EEEF; --muted:#9DB4B8; --nav:#0F1D20; --title:#A9DDE2;}
+}
+*{box-sizing:border-box;margin:0}
+body{background:var(--teal-deep);font-family:'Lora',Georgia,serif;color:var(--ink);line-height:1.55}
+.app{max-width:480px;margin:0 auto;min-height:100vh;background:var(--bg);padding-bottom:calc(84px + env(safe-area-inset-bottom,0px))}
+h1,h2,h3{font-family:'Oswald','Arial Narrow',Impact,sans-serif;text-transform:uppercase;line-height:1.02;font-weight:700}
+
+.hero{background:var(--teal);padding:calc(22px + env(safe-area-inset-top,0px)) 22px 0;color:#fff;overflow:hidden}
+.top{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+.brand{display:flex;align-items:center;gap:10px}
+.brand svg{width:34px;height:34px}
+.brand span{font-family:'Oswald',sans-serif;font-weight:700;font-size:15px;line-height:1;text-transform:uppercase;letter-spacing:.02em}
+.avatar{width:38px;height:38px;border-radius:50%;background:var(--aqua);color:var(--teal-deep);display:grid;place-items:center;font-family:'Oswald',sans-serif;font-weight:700}
+.hello{font-style:italic;color:var(--aqua);margin-bottom:6px}
+.arch{background:var(--bg);color:var(--ink);border-radius:999px 999px 0 0;margin:14px 6px 0;padding:56px 26px 26px;position:relative}
+.arch .tag{position:absolute;top:-4px;left:50%;transform:translateX(-50%) rotate(-2deg);background:var(--amber);color:var(--teal-deep);font-family:'Oswald',sans-serif;font-weight:700;padding:6px 16px;text-transform:uppercase;font-size:14px;white-space:nowrap}
+.arch h1{font-size:44px;color:var(--title);text-align:center;margin:8px 0 12px}
+.arch .rule{font-size:16px;text-align:center;margin-bottom:14px}
+.words{list-style:none;padding:0;display:grid;gap:8px;margin-bottom:16px}
+.words li{background:var(--card);border-left:5px solid var(--amber);padding:9px 14px;font-style:italic;font-size:17px}
+.deadline{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.deadline p{color:var(--muted);font-size:14px;font-style:italic}
+.btn{background:var(--teal);color:#fff;border:0;border-radius:999px;padding:11px 20px;font-family:'Oswald',sans-serif;font-weight:500;font-size:15px;text-transform:uppercase;letter-spacing:.03em;cursor:pointer}
+.btn:focus-visible,.nav button:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+
+main{padding:24px 18px 0;display:grid;gap:26px}
+.sec-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px}
+.sec-head h2{font-size:26px;color:var(--title)}
+.sec-head a{color:var(--title);font-size:14px;text-decoration:underline}
+
+.event{display:flex;gap:14px;background:var(--card);padding:14px;border-radius:14px;margin-bottom:10px;align-items:center}
+.date{background:var(--teal);color:#fff;border-radius:10px;min-width:58px;padding:8px 6px;text-align:center}
+.date b{display:block;font-family:'Oswald',sans-serif;font-size:26px;line-height:1}
+.date small{font-size:12px;text-transform:uppercase;letter-spacing:.05em}
+.event h3{font-size:18px;text-transform:none;font-weight:700;margin-bottom:2px}
+.event p{font-size:14px;color:var(--muted)}
+.event.guest .date{background:var(--amber);color:var(--teal-deep)}
+
+.shelf{display:flex;gap:12px;overflow-x:auto;padding-bottom:6px;scroll-snap-type:x mandatory}
+.book{flex:0 0 116px;scroll-snap-align:start}
+.cover{height:164px;border-radius:4px 10px 10px 4px;padding:12px 10px;display:flex;align-items:flex-end;font-family:'Oswald',sans-serif;font-weight:700;text-transform:uppercase;font-size:17px;line-height:1.05;box-shadow:inset 6px 0 0 rgba(0,0,0,.14)}
+.book p{font-size:13px;color:var(--muted);margin-top:6px}
+.c1{background:var(--amber);color:var(--teal-deep)}.c2{background:var(--teal);color:#fff}.c3{background:var(--aqua);color:var(--teal-deep)}.c4{background:#E8A9A9;color:#5a2b2b}
+
+.note{background:var(--teal);color:#fff;border-radius:14px;padding:18px}
+.note h3{font-size:22px;margin-bottom:6px}
+.note p{color:var(--aqua);font-size:15px;margin-bottom:12px}
+.note .btn{background:var(--amber);color:var(--teal-deep)}
+
+.nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:var(--nav);display:flex;justify-content:space-around;padding:8px 6px calc(8px + env(safe-area-inset-bottom,0px))}
+.nav button{background:none;border:0;color:var(--navink);opacity:.65;font-family:'Oswald',sans-serif;font-size:12px;text-transform:uppercase;letter-spacing:.04em;display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 10px;border-radius:12px;cursor:pointer}
+.nav svg{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.nav .on{opacity:1;color:var(--amber)}
+</style>
 </head>
 <body>
+<div class="app">
+  <header class="hero">
+    <div class="top">
+      <div class="brand">
+        <svg viewBox="0 0 40 40" aria-hidden="true"><path d="M5 38V19C5 9 12 3 20 3s15 6 15 16v19h-6V19c0-6-4-10-9-10s-9 4-9 10v19z" fill="#EBEDEF"/><path d="M20 15l5 8-2 5h-6l-2-5z" fill="#EBEDEF"/><rect x="16" y="30" width="8" height="3" fill="#EBEDEF"/></svg>
+        <span>La Cueva<br>del Narrador</span>
+      </div>
+      <div class="avatar" aria-label="Tu perfil">M</div>
+    </div>
+    <p class="hello">Bienvenido a la cueva, narrador.</p>
+    <section class="arch" aria-label="Reto del mes">
+      <span class="tag">Reto del mes</span>
+      <h1>Escribe 600 palabras</h1>
+      <p class="rule">Tu texto tiene que incluir:</p>
+      <ul class="words">
+        <li>Un naufragio.</li>
+        <li>Una promesa rota.</li>
+        <li>Una dama blanca.</li>
+      </ul>
+      <div class="deadline">
+        <p>Tienes una semana para enviarlo.</p>
+        <button class="btn">Enviar mi texto</button>
+      </div>
+    </section>
+  </header>
+
   <main>
-    <h1>La Cueva del Narrador</h1>
-    <p>Muy pronto, nuestra nueva casa.</p>
+    <section>
+      <div class="sec-head"><h2>Próximos eventos</h2><a href="#">Ver calendario</a></div>
+      <article class="event">
+        <div class="date"><b>08</b><small>Oct</small></div>
+        <div><h3>Clase: diálogos que suenan reales</h3><p>Sesión del club · 19:30</p></div>
+      </article>
+      <article class="event guest">
+        <div class="date"><b>22</b><small>Oct</small></div>
+        <div><h3>Charla con autora invitada</h3><p>Invitada del club · 19:30</p></div>
+      </article>
+    </section>
+
+    <section>
+      <div class="sec-head"><h2>Lecturas del mes</h2><a href="#">Ir a la biblioteca</a></div>
+      <div class="shelf">
+        <div class="book"><div class="cover c1">Título del libro</div><p>Autor/a</p></div>
+        <div class="book"><div class="cover c2">Título del libro</div><p>Autor/a</p></div>
+        <div class="book"><div class="cover c3">Título del libro</div><p>Autor/a</p></div>
+        <div class="book"><div class="cover c4">Título del libro</div><p>Autor/a</p></div>
+      </div>
+    </section>
+
+    <section class="note">
+      <h3>Apuntes de la clase</h3>
+      <p>Adverbios, diálogos y pequeños vicios que pueden estar ensuciando tu texto.</p>
+      <button class="btn">Leer apuntes</button>
+    </section>
   </main>
+
+  <nav class="nav" aria-label="Navegación principal">
+    <button class="on" aria-current="page"><svg viewBox="0 0 24 24"><path d="M4 21V11a8 8 0 0116 0v10M9 21v-6a3 3 0 016 0v6"/></svg>Inicio</button>
+    <button><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Calendario</button>
+    <button><svg viewBox="0 0 24 24"><path d="M4 5c3-1 6-1 8 1 2-2 5-2 8-1v13c-3-1-6-1-8 1-2-2-5-2-8-1z"/><path d="M12 6v13"/></svg>Curso</button>
+    <button><svg viewBox="0 0 24 24"><path d="M5 3h4v18H5zM11 3h4v18h-4zM17 5l3.5 1-4 15-3.5-1z"/></svg>Biblioteca</button>
+    <button><svg viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="19" cy="12" r="1.5"/></svg>Más</button>
+  </nav>
+</div>
 </body>
 </html>
