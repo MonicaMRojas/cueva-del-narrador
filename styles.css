@@ -32,7 +32,7 @@ a.btn{display:inline-flex;align-items:center;gap:9px;text-decoration:none}
 .btn svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
 .btn:focus-visible,.nav a:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
 
-main{padding:24px 18px 0;display:grid;gap:26px}
+main{padding:24px 18px 0;display:grid;grid-template-columns:minmax(0,1fr);gap:26px}
 .sec-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px}
 .sec-head h2{font-size:26px;color:var(--title)}
 .sec-head a{color:var(--title);font-size:14px;text-decoration:underline}
@@ -97,3 +97,29 @@ main{padding:24px 18px 0;display:grid;gap:26px}
 .badge{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--muted);margin-top:4px}
 .badge i{width:9px;height:9px;border-radius:50%;display:block}
 .empty{background:var(--card);border-radius:14px;padding:18px;color:var(--muted);font-style:italic}
+
+/* ---------- Biblioteca ---------- */
+.tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.tab{border:2px solid var(--teal);background:none;color:var(--title);border-radius:999px;padding:10px 8px;font-family:'Oswald',sans-serif;font-weight:500;font-size:15px;text-transform:uppercase;letter-spacing:.03em;cursor:pointer}
+.tab[aria-selected="true"]{background:var(--teal);color:#fff}
+.tab:focus-visible,.buscador:focus-visible,.solo input:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+.buscador{width:100%;border:2px solid transparent;background:var(--card);color:var(--ink);border-radius:999px;padding:12px 18px;font-family:'Lora',serif;font-size:16px}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:12px 0 4px}
+.chips .chip{flex:none;white-space:nowrap}
+.chip.on{background:var(--teal);color:#fff}
+.solo{display:flex;align-items:center;gap:10px;margin-top:10px;font-size:15px}
+.solo input{width:20px;height:20px;accent-color:var(--teal)}
+.cuenta{color:var(--muted);font-size:14px;margin-bottom:10px}
+.libro{display:flex;gap:14px;background:var(--card);padding:14px;border-radius:14px;margin-bottom:10px}
+.portada{flex:none;width:64px;height:92px;border-radius:4px 8px 8px 4px;object-fit:cover;display:flex;align-items:flex-end;padding:8px;font-family:'Oswald',sans-serif;font-weight:700;font-size:34px;line-height:1;box-shadow:inset 5px 0 0 rgba(0,0,0,.14)}
+.libro .info{min-width:0}
+.libro h3{font-size:18px;text-transform:none;font-weight:700;margin-bottom:2px}
+.libro .autor{font-size:14px;color:var(--muted)}
+.meta{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.tag,.estado{font-size:12px;border-radius:999px;padding:3px 10px}
+.tag{border:1.5px solid var(--teal);color:var(--title)}
+.estado.ok{background:var(--aqua);color:#14262A}
+.estado.no{background:#E8A9A9;color:#14262A}
+.por{font-size:14px;font-style:italic;color:var(--title);margin-top:8px}
+.nota{font-size:14px;color:var(--muted);margin-top:4px}
+[hidden]{display:none!important}
