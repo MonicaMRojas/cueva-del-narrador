@@ -196,3 +196,20 @@ a.item:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
 .qrbox .qr{width:100%;height:100%;display:block}
 .qrcard p{margin-bottom:10px}
 .qrcard .url{font-size:13px;color:var(--muted);overflow-wrap:anywhere}
+
+/* ---------- Entidades y privacidad ---------- */
+.entidad{display:flex;gap:14px;background:var(--card);border-radius:14px;padding:14px;margin-bottom:10px;align-items:center}
+.entidad .logo{flex:none;width:104px;height:104px;background:#fff;border-radius:12px;display:grid;place-items:center;padding:8px}
+.entidad .logo img{max-width:100%;max-height:100%;object-fit:contain;display:block}
+.entidad .inicial{width:100%;height:100%;border-radius:8px;display:grid;place-items:center;font-family:'Oswald',sans-serif;font-weight:700;font-size:44px}
+.entidad .datos{min-width:0}
+.entidad h3{font-size:18px;text-transform:none;font-weight:700;margin-bottom:2px}
+.entidad p{font-size:14px;color:var(--muted);margin-bottom:8px}
+.elink{display:inline-flex;align-items:center;gap:6px;color:var(--title);font-size:14px;text-decoration:underline}
+.elink svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.texto ul{padding-left:20px;margin-bottom:12px}
+.texto li{margin-bottom:6px;text-align:justify;hyphens:auto;-webkit-hyphens:auto}
+.texto ul:last-child{margin-bottom:0}
+
+.pagehead h1.largo{font-size:clamp(26px,8.2vw,36px)}
+.texto p.izq{text-align:left}
