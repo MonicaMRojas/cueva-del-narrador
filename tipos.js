@@ -3,7 +3,7 @@
 // c = color de fondo, t = color del texto sobre ese fondo
 
 const TIPOS = {
-  clase:     { n: 'Clase',                        c: '#528A93', t: '#FFFFFF' },
+  clase:     { n: 'Clase',                        c: '#3E6F77', t: '#FFFFFF' },
   marketing: { n: 'Clase de marketing',           c: '#8797DB', t: '#14262A' },
   sesion:    { n: 'Sesión de escritura conjunta', c: '#E8A9A9', t: '#14262A' },
   invitado:  { n: 'Charla con invitados',         c: '#FFBA55', t: '#14262A' },
