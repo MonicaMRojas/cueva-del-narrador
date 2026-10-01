@@ -14,7 +14,7 @@
   function estante(id,libros,vacio,conRecomienda){
     document.getElementById(id).innerHTML=libros.length?libros.slice(0,MAX).map(l=>{
       const c=colorPortada(l.titulo);
-      const portada=l.portada?'<img class="cover" src="'+esc(l.portada)+'" alt="Portada de '+esc(l.titulo)+'" style="width:100%;object-fit:cover;padding:0">':'<div class="cover" style="background:'+c[0]+';color:'+c[1]+'">'+esc(l.titulo)+'</div>';
+      const portada=l.portada?'<img class="cover" src="'+esc(ruta(l.portada))+'" alt="Portada de '+esc(l.titulo)+'" style="width:100%;object-fit:cover;padding:0">':'<div class="cover" style="background:'+c[0]+';color:'+c[1]+'">'+esc(l.titulo)+'</div>';
       return '<div class="book">'+portada+'<p>'+esc(l.autor)+'</p>'+(conRecomienda&&l.recomienda?'<p class="by">Recomienda: '+esc(l.recomienda)+'</p>':'')+'</div>';
     }).join(''):'<p class="empty">'+vacio+'</p>';
   }

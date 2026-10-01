@@ -35,41 +35,35 @@
       <div class="deadline">
         <p id="reto-plazo"></p>
         <a class="btn" href="https://www.instagram.com/lacuevadelnarrador/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r=".6" fill="currentColor"/></svg>Súbelo a Instagram y etiquétanos</a>
-        <a class="vermas" href="retos.html">Ver todos los retos</a>
+        <a class="vermas" href="paginas/retos.html">Ver todos los retos</a>
       </div>
     </section>
   </header>
 
   <main>
     <section id="eventos">
-      <div class="sec-head"><h2>Próximos eventos</h2><a href="calendario.html">Ver calendario</a></div>
+      <div class="sec-head"><h2>Próximos eventos</h2><a href="paginas/calendario.html">Ver calendario</a></div>
       <div id="proximos"></div>
     </section>
 
     <section id="biblioteca">
-      <div class="sec-head"><h2>Nuestra biblioteca</h2><a href="biblioteca.html">Ver todos</a></div>
+      <div class="sec-head"><h2>Nuestra biblioteca</h2><a href="paginas/biblioteca.html">Ver todos</a></div>
       <div class="shelf" id="est-biblioteca"></div>
     </section>
 
     <section id="recomendados">
-      <div class="sec-head"><h2>Libros recomendados por nuestros socios</h2><a href="biblioteca.html#recomendados">Ver más</a></div>
+      <div class="sec-head"><h2>Libros recomendados por nuestros socios</h2><a href="paginas/biblioteca.html#recomendados">Ver más</a></div>
       <div class="shelf" id="est-recomendados"></div>
     </section>
 
     <section class="note">
       <h3>Apuntes de la clase</h3>
       <p>Adverbios, diálogos y pequeños vicios que pueden estar ensuciando tu texto.</p>
-      <a class="btn" href="curso.html">Leer apuntes</a>
+      <a class="btn" href="paginas/curso.html">Leer apuntes</a>
     </section>
   </main>
 
-  <nav class="nav" aria-label="Navegación principal">
-    <a href="index.html" class="on" aria-current="page"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 21V11a8 8 0 0116 0v10M9 21v-6a3 3 0 016 0v6"/></svg>Inicio</a>
-    <a href="calendario.html"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Calendario</a>
-    <a href="curso.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5c3-1 6-1 8 1 2-2 5-2 8-1v13c-3-1-6-1-8 1-2-2-5-2-8-1z"/><path d="M12 6v13"/></svg>Curso</a>
-    <a href="biblioteca.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3h4v18H5zM11 3h4v18h-4zM17 5l3.5 1-4 15-3.5-1z"/></svg>Biblioteca</a>
-    <a href="mas.html"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="5" cy="12" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="19" cy="12" r="1.5"/></svg>Más</a>
-  </nav>
+  <nav class="nav" id="nav" data-actual="inicio" aria-label="Navegación principal"></nav>
 </div>
 <script src="js/comun.js"></script>
 <script src="js/tipos.js"></script>

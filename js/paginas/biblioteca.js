@@ -22,7 +22,7 @@ function pintarLista(){
   document.getElementById('cuenta').textContent=lista.length+(lista.length===1?' libro':' libros');
   document.getElementById('lista').innerHTML=lista.length?lista.map(l=>{
     const [c,t]=colorPortada(l.titulo);
-    const portada=l.portada?'<img class="portada" src="'+esc(l.portada)+'" alt="Portada de '+esc(l.titulo)+'">':'<div class="portada" style="background:'+c+';color:'+t+'" aria-hidden="true">'+esc(l.titulo.charAt(0))+'</div>';
+    const portada=l.portada?'<img class="portada" src="'+esc(ruta(l.portada))+'" alt="Portada de '+esc(l.titulo)+'">':'<div class="portada" style="background:'+c+';color:'+t+'" aria-hidden="true">'+esc(l.titulo.charAt(0))+'</div>';
     const estado=(pestana==='biblioteca')?'<span class="estado '+(l.disponible?'ok':'no')+'">'+(l.disponible?'Disponible':'Prestado')+'</span>':'';
     const por=(pestana==='recomendados'&&l.recomienda)?'<p class="por">Recomienda: '+esc(l.recomienda)+'</p>':'';
     return '<article class="libro">'+portada+'<div class="info"><h3>'+esc(l.titulo)+'</h3><p class="autor">'+esc(l.autor)+'</p><div class="meta">'+(l.genero?'<span class="tag">'+esc(l.genero)+'</span>':'')+estado+'</div>'+por+(l.nota?'<p class="nota">'+esc(l.nota)+'</p>':'')+'</div></article>';

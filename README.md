@@ -6,9 +6,11 @@ App web (PWA) de La Cueva del Narrador, club de escritura en Sevilla. Es una web
 
 | Carpeta o archivo | Qué contiene |
 |---|---|
-| `*.html` | Las páginas. Se quedan en la raíz para no cambiar sus direcciones. |
+| `index.html` | La portada. Se queda en la raíz: es la dirección del QR y de la app instalada. |
+| `paginas/` | El resto de páginas. |
+| `404.html` | Página de error. Redirige las direcciones antiguas (de cuando las páginas estaban en la raíz). |
 | `datos/` | El contenido que edita el club: eventos, libros, retos, cursos y entidades. |
-| `js/comun.js` | Funciones que usan todas las páginas. |
+| `js/comun.js` | Lo que usan todas las páginas, incluida la barra de navegación inferior. |
 | `js/tipos.js` | Categorías de eventos y sus colores. |
 | `js/paginas/` | El código de cada página. |
 | `css/styles.css` | Los estilos. |

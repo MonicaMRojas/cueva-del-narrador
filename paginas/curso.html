@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Curso · La Cueva del Narrador</title>
+<meta name="theme-color" content="#528A93">
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="icon" href="../img/icon-192.png">
+<link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+<div class="app">
+  <header class="pagehead">
+    <div class="top">
+      <div class="brand">
+        <img src="../img/logo-arco.png" alt="Logo de La Cueva del Narrador">
+        <span>La Cueva<br>del Narrador</span>
+      </div>
+      <div class="avatar" aria-label="Tu perfil">M</div>
+    </div>
+    <h1>Curso</h1>
+    <p class="sub">Charlas y apuntes de todos los cursos del club.</p>
+  </header>
+
+  <main>
+    <div class="tabs" id="tabs" role="tablist"></div>
+    <p class="periodo" id="periodo"></p>
+
+    <section aria-label="Filtros">
+      <input class="buscador" id="q" type="search" placeholder="Buscar una charla" aria-label="Buscar una charla">
+      <div class="chips" id="tipos" aria-label="Filtrar por tipo"></div>
+    </section>
+
+    <section aria-live="polite">
+      <p class="cuenta" id="cuenta"></p>
+      <div id="lista"></div>
+    </section>
+  </main>
+
+  <nav class="nav" id="nav" data-actual="curso" aria-label="Navegación principal"></nav>
+</div>
+<script src="../js/comun.js"></script>
+<script src="../js/tipos.js"></script>
+<script src="../datos/curso.js"></script>
+<script src="../js/paginas/curso.js"></script>
+</body>
+</html>
