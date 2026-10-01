@@ -76,14 +76,7 @@
     <a href="mas.html" class="on" aria-current="page"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="5" cy="12" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="19" cy="12" r="1.5"/></svg>Más</a>
   </nav>
 </div>
-<script>
-document.getElementById("copiar").addEventListener("click", async function(){
-  const b=this, url=document.getElementById("url").textContent;
-  try { await navigator.clipboard.writeText(url); b.textContent="¡Copiado!"; }
-  catch(e){ b.textContent="Copia el enlace de arriba"; }
-  setTimeout(()=>{ b.textContent="Copiar enlace"; }, 2500);
-});
-if ("serviceWorker" in navigator) window.addEventListener("load", () => navigator.serviceWorker.register("sw.js"));
-</script>
+<script src="js/comun.js"></script>
+<script src="js/paginas/instalar.js"></script>
 </body>
 </html>
